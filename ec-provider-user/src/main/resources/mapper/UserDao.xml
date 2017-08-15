@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 组的dao -->
+<mapper namespace="com.ecspringcloud.easycloud.provider.user.dao.UserDao">
+
+    <select id="getById" resultType="UserDO">
+        SELECT id as "id",name as "name",create_date as "createDate",update_date as "updateDate"
+        FROM ec_user
+        WHERE id = #{id}
+    </select>
+
+    <insert id="save" parameterType="UserDO">
+        INSERT INTO ec_user(
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                id,
+            </if>
+            <if test="name!=null">
+                name,
+            </if>
+            <if test="createDate!=null">
+                create_date,
+            </if>
+            <if test="updateDate!=null">
+                update_date,
+            </if>
+        </trim>
+
+        ) VALUES (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="name!=null">
+                #{name},
+            </if>
+            <if test="createDate!=null">
+                #{createDate},
+            </if>
+
+            <if test="updateDate!=null">
+                #{updateDate},
+            </if>
+
+        </trim>
+
+        )
+    </insert>
+
+    <update id="updateById" >
+        UPDATE ec_user
+        <set>
+            <if test="updateDate!=null">
+                update_date = #{updateDate},
+            </if>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+</mapper>

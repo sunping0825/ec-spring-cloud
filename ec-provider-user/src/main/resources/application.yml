@@ -1,0 +1,29 @@
+server:
+  port: 8000
+spring:
+  application:
+    name: ec-provider-user   # 项目名称尽量用小写
+logging:
+  level:
+    root: INFO
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/    # 指定注册中心的地址
+  instance:
+    preferIpAddress: true
+#datasource config
+jdbc:
+  driverClassName: com.mysql.jdbc.Driver
+  url: jdbc:mysql://127.0.0.1:3306/ec?zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=utf-8
+  username: root
+  password: a1b2c3d4
+
+#mybatis config
+mybatis:
+  typeAliasesPackage: com.ecspringcloud.easycloud.provider.user.entity
+  mapperLocations: classpath:mapper/*.xml
+
+snowflake:
+  workerId: 0
+  datacenterId: 0

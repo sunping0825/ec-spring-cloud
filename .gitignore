@@ -20,3 +20,8 @@
 *.zip
 *.tar.gz
 *.rar
+.idea/libraries/Maven__com_netflix_feign_feign_core_8_18_0.xml
+.idea/libraries/Maven__com_netflix_feign_feign_httpclient_8_18_0.xml
+ec-eureka/ec-eureka.iml
+ec-gateway/ec-gateway.iml
+ec-provider-user/ec-provider-user.iml

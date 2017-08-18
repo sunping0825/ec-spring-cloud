@@ -10,8 +10,8 @@ import java.util.ResourceBundle;
 /**
  * 获取配置信息的工具类
  */
-public class PropertyUtils {
-	private static final Log logger = LogFactory.getLog(PropertyUtils.class);
+public class PropertyUtil {
+	private static final Log logger = LogFactory.getLog(PropertyUtil.class);
 	//是否已经初始化过 false表示未初始化过 ；true表示已经初始化。
 	private static boolean inited = false;
     //配置文件中的配置项目。

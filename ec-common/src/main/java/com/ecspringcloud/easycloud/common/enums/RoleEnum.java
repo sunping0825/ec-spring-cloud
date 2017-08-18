@@ -1,14 +1,15 @@
 package com.ecspringcloud.easycloud.common.enums;
 
 /**
- * Created by Administrator on 2017/8/15.
+ * @author sunping
+ * @create 2017/8/17
  */
-public enum ResultEnum {
-    SUCCESS(0, "成功"),VERIFY_ERROR(1,"验证失败");
+public enum  RoleEnum {
+    PLAT_ADMIN(0, "成功");
     private Integer value;
     private String name;
 
-    private ResultEnum(Integer value, String name) {
+    private RoleEnum(Integer value, String name) {
         this.value = value;
         this.name = name;
     }

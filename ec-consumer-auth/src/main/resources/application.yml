@@ -1,0 +1,20 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: ec-consumer-auth  # 项目名称尽量用小写
+logging:
+  level:
+    root: INFO
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/    # 指定注册中心的地址
+  instance:
+    preferIpAddress: true
+ribbon:
+  eureka:
+    enabled: true
+feign:
+  httpclient:
+    enabled: true

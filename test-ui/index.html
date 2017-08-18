@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="static/js/jquery.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div>
+    <table>
+        <tr>
+            <td>请求地址</td>
+            <td><input type="text" id="url"></td>
+        </tr>
+        <tr>
+            <td>请求方式</td>
+            <td><input type="radio" name="method" value="GET">Get <input type="radio" name="method" value="POST" checked="checked">Post</td>
+        </tr>
+        <tr>
+            <td>参数</td>
+            <td><textarea id="params"></textarea></td>
+        </tr>
+        <tr><td>
+            
+        </td>
+        <td>
+            <input type="button" value="请求" onclick="doRequest()">
+        </td></tr>
+    </table>
+    <div>
+        结果
+
+    </div>
+    <textarea id="result">
+
+    </textarea>
+</div>
+</body>
+<script>
+    function doRequest() {
+        var url=$("#url").val();
+        var params=$("#params").val();
+        var method=$("[name='method']").val();
+        $.ajax({
+            url: url,
+            type: method,
+            data: params,
+            dataType: 'json',
+            success: function (data) {
+                var s=format(JSON.stringify(data),false);
+               $("#result").html(s);
+            }
+        });
+    }
+    function format(txt,compress/*是否为压缩模式*/){/* 格式化JSON源码(对象转换为JSON文本) */
+        var indentChar = '    ';
+        if(/^\s*$/.test(txt)){
+            alert('数据为空,无法格式化! ');
+            return;
+        }
+        try{var data=eval('('+txt+')');}
+        catch(e){
+            alert('数据源语法错误,格式化失败! 错误信息: '+e.description,'err');
+            return;
+        };
+        var draw=[],last=false,This=this,line=compress?'':'\n',nodeCount=0,maxDepth=0;
+
+        var notify=function(name,value,isLast,indent/*缩进*/,formObj){
+            nodeCount++;/*节点计数*/
+            for (var i=0,tab='';i<indent;i++ )tab+=indentChar;/* 缩进HTML */
+            tab=compress?'':tab;/*压缩模式忽略缩进*/
+            maxDepth=++indent;/*缩进递增并记录*/
+            if(value&&value.constructor==Array){/*处理数组*/
+                draw.push(tab+(formObj?('"'+name+'":'):'')+'['+line);/*缩进'[' 然后换行*/
+                for (var i=0;i<value.length;i++)
+                    notify(i,value[i],i==value.length-1,indent,false);
+                draw.push(tab+']'+(isLast?line:(','+line)));/*缩进']'换行,若非尾元素则添加逗号*/
+            }else   if(value&&typeof value=='object'){/*处理对象*/
+                draw.push(tab+(formObj?('"'+name+'":'):'')+'{'+line);/*缩进'{' 然后换行*/
+                var len=0,i=0;
+                for(var key in value)len++;
+                for(var key in value)notify(key,value[key],++i==len,indent,true);
+                draw.push(tab+'}'+(isLast?line:(','+line)));/*缩进'}'换行,若非尾元素则添加逗号*/
+            }else{
+                if(typeof value=='string')value='"'+value+'"';
+                draw.push(tab+(formObj?('"'+name+'":'):'')+value+(isLast?'':',')+line);
+            };
+        };
+        var isLast=true,indent=0;
+        notify('',data,isLast,indent,false);
+        return draw.join('');
+    }
+</script>
+</html>

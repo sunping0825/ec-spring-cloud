@@ -51,11 +51,11 @@ public class SnowflakeIdWorker {
     static {
         long workerId=0;
         long datacenterId=0;
-        String workerIdStr= PropertyUtils.getProperty("snowflake.workerId");
+        String workerIdStr= PropertyUtil.getProperty("snowflake.workerId");
         if(null!=workerIdStr&&!workerIdStr.equals("")){
             workerId=Long.parseLong(workerIdStr);
         }
-        String datacenterIdStr= PropertyUtils.getProperty("snowflake.datacenterId");
+        String datacenterIdStr= PropertyUtil.getProperty("snowflake.datacenterId");
         if(null!=datacenterIdStr&&!datacenterIdStr.equals("")){
             datacenterId=Long.parseLong(datacenterIdStr);
         }

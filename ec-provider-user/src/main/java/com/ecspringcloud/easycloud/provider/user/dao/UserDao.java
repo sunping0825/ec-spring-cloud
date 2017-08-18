@@ -2,6 +2,7 @@ package com.ecspringcloud.easycloud.provider.user.dao;
 
 
 import com.ecspringcloud.easycloud.provider.user.entity.UserDO;
+import com.ecspringcloud.easycloud.provider.user.entity.query.UserQuery;
 
 /**
  * Created by Administrator on 2017/8/8.
@@ -34,4 +35,11 @@ public interface UserDao {
      * @return
      */
     UserDO getById(Long id);
+
+    /**
+     * 根据名称获取
+     * @param userQuery
+     * @return
+     */
+    UserDO getByUserName(UserQuery userQuery);
 }

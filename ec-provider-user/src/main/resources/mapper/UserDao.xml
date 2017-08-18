@@ -4,9 +4,15 @@
 <mapper namespace="com.ecspringcloud.easycloud.provider.user.dao.UserDao">
 
     <select id="getById" resultType="UserDO">
-        SELECT id as "id",name as "name",create_date as "createDate",update_date as "updateDate"
+        SELECT id as "id",name as "name",user_name as "userName",password as "password", create_date as "createDate",update_date as "updateDate"
         FROM ec_user
         WHERE id = #{id}
+    </select>
+
+    <select id="getByUserName" resultType="UserDO">
+        SELECT id as "id",name as "name",user_name as "userName",password as "password", create_date as "createDate",update_date as "updateDate"
+        FROM ec_user
+        WHERE user_name = #{userName}
     </select>
 
     <insert id="save" parameterType="UserDO">
@@ -17,6 +23,12 @@
             </if>
             <if test="name!=null">
                 name,
+            </if>
+            <if test="userName!=null">
+                user_name,
+            </if>
+            <if test="password!=null">
+                password,
             </if>
             <if test="createDate!=null">
                 create_date,
@@ -33,6 +45,12 @@
             </if>
             <if test="name!=null">
                 #{name},
+            </if>
+            <if test="userName!=null">
+                #{userName},
+            </if>
+            <if test="password!=null">
+                #{password},
             </if>
             <if test="createDate!=null">
                 #{createDate},

@@ -20,6 +20,10 @@
             <td><input type="text" id="url" style="width: 100%"></td>
         </tr>
         <tr>
+            <td>token</td>
+            <td><input type="text" id="token" style="width: 100%"></td>
+        </tr>
+        <tr>
             <td>请求方式</td>
             <td><input type="radio" name="method" value="GET">Get <input type="radio" name="method" value="POST" checked="checked">Post</td>
         </tr>
@@ -78,16 +82,23 @@
 <div id="Canvas" class="Canvas"></div>
 <script type="text/javascript" src="static/js/m.js"></script>
 <script>
+    var tokenKey = "X_EC_TOKEN";
     function doRequest() {
         var host=$("#host").val();
         var url=$("#url").val();
         var params=$("#params").val();
         var method=$("[name='method']:checked").val();
+        var token=$("#token").val();
         $.ajax({
             url: host+url,
             type: method,
             data: params,
             dataType: 'json',
+            beforeSend: function (XMLHttpRequest) {
+                if($.trim(token)!='') {
+                    XMLHttpRequest.setRequestHeader(tokenKey, $.trim(token));
+                }
+            },
             success: function (data) {
                 $("#RawJson").val(JSON.stringify(data));
                 Process();
